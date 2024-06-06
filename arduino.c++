@@ -21,7 +21,6 @@ const int editConfirmBtn = 3;
 // Servo Motor
 Servo servoMotor;
 const int servoPin = 5;
-int pos;
 
 // States
 bool lcdState = false;
@@ -30,13 +29,13 @@ int editState = 0;
 bool blinkState = false;
 
 // Timer
-unsigned long previousMillis = 0;       // Guarda o último tempo em que o piscar foi atualizado
-const long interval = 200;              // Intervalo de piscar em milissegundos
-unsigned long timerPreviousMillis = 0;  // Guarda o último tempo em que o timer foi atualizado
-const long timerInterval = 1000;        // Intervalo de um segundo para o timer
-unsigned long currentMillis;
-
-void setup() {
+  unsigned long previousMillis = 0;       // Guarda o último tempo em que o piscar foi atualizado
+  const long interval = 200;              // Intervalo de piscar em milissegundos
+  unsigned long timerPreviousMillis = 0;  // Guarda o último tempo em que o timer foi atualizado
+  const long timerInterval = 1000;        // Intervalo de um segundo para o timer
+  unsigned long currentMillis;
+  void setup() {
+    
   // Lcd setup
   Serial.begin(9600);
   lcd.init();
@@ -48,9 +47,10 @@ void setup() {
   pinMode(decBtn, INPUT_PULLUP);
   pinMode(incBtn, INPUT_PULLUP);
   pinMode(editConfirmBtn, INPUT_PULLUP);
-
+  
   // Servo Motor
   servoMotor.attach(servoPin);
+  servoMotor.write(0);
 }
 
 void loop() {
@@ -102,7 +102,6 @@ void updateLcd() {
     lcd.print(segundos);
   }
 }
-
 
 void onOff() {
   if (digitalRead(onOffBtn) == LOW && lcdState == false) {
@@ -244,6 +243,7 @@ void blinkUpdate() {
   }
 }
 
+
 void timer() {
   if (millis() - timerPreviousMillis >= timerInterval) {
     timerPreviousMillis += timerInterval;  // Adiciona o intervalo ao tempo anterior
@@ -258,8 +258,14 @@ void timer() {
       minutos = 59;
       segundos = 59;
     } else {
-      Serial.println("aaaaaaaaaaaa");
       door();
+      lcd.clear();
+      lcd.print("Alimentado");
+      lcd.setCursor(0, 1);
+      lcd.print("com sucesso!");
+      delay(2500);
+      lcd.clear();
+      delay(1500);
       horas = lastHours;
       minutos = lastMinutes;
       segundos = lastSeconds;
@@ -271,6 +277,6 @@ void timer() {
 void door() {
   servoMotor.write(180);  // Abre o servo para 180 graus
   delay(1500);            // Espera 2 segundos
-  servoMotor.write(0);   // Retorna o servo para a posição inicial
+  servoMotor.write(0);    // Retorna o servo para a posição inicial
   //delay(1500);
 }
