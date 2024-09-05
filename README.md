@@ -9,6 +9,12 @@
 - O temporizador reinicia sozinho para repetir o processo automaticamente.
 - Pode ser utilizado para alimentar animais de estimação de forma prática e controlada.
 
+
+## 📷 Vídeos
+https://github.com/user-attachments/assets/81efe20f-f4d4-45cb-b338-4072caef35be
+
+https://github.com/user-attachments/assets/cd2ec5df-5246-4fda-acaa-624dea0df98b
+
 ## 🛠️ Tecnologias Utilizadas
 
 - **Arduino Uno**: Microcontrolador principal para executar a lógica do projeto.
